@@ -23,7 +23,13 @@ namespace GuiTest
         public MainWindow()
         {
             InitializeComponent();
-            Button1.Content = "Hallo";
+            //Button1.Content = "Hallo";
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            button1.Content = "Hallo Welt";
+        }
+
     }
 }

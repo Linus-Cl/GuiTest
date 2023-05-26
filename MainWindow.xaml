@@ -6,7 +6,38 @@
         xmlns:local="clr-namespace:GuiTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name ="Button1" Width="100" Height="50">Test</Button>
-    </Grid>
+    
+    <!--<DockPanel LastChildFill="True">
+        <Button Content="Oben" DockPanel.Dock="Top"/>
+        <Button Content="Links" DockPanel.Dock="Left"/>
+        <Button Content="Rechts" DockPanel.Dock="Right"/>
+        <Button Content="Unten" DockPanel.Dock="Bottom"/>
+    </DockPanel>-->
+
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Button Content="Klick mich" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="Hallo" Grid.RowSpan="2"/>
+    </Grid>-->
+
+    <!--<StackPanel Orientation="Horizontal">
+        <Button HorizontalAlignment="Center" x:Name="button1" Click="Button_Click"  Content="Klick mich!" Margin="20" Height="50" Width="100"/>
+        <Button HorizontalAlignment="Left" x:Name="button2" Content="Butt" Height="100" Width="200"/>
+        <Button VerticalAlignment="Bottom" x:Name="button3" Content="Lol" Height="100" Width="400"/>
+    </StackPanel>-->
+
+    <StackPanel>
+        <Label></Label>
+    </StackPanel>
+    
 </Window>
