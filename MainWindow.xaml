@@ -36,8 +36,12 @@
         <Button VerticalAlignment="Bottom" x:Name="button3" Content="Lol" Height="100" Width="400"/>
     </StackPanel>-->
 
-    <StackPanel>
-        <Label></Label>
+    <StackPanel Margin="30">
+        <Label Foreground="Red" Background="Aquamarine">Hallo Welt!</Label>
+        <Label>
+            <Image Source="Pics/elephant.jpg" Width="200" Height="100"/>
+        </Label>
+        <TextBox></TextBox>
     </StackPanel>
     
 </Window>
