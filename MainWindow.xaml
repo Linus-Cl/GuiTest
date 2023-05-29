@@ -1,4 +1,5 @@
-﻿<Window x:Class="GuiTest.MainWindow"
+﻿
+<Window x:Class="GuiTest.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +7,7 @@
         xmlns:local="clr-namespace:GuiTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
+        
     <!--<DockPanel LastChildFill="True">
         <Button Content="Oben" DockPanel.Dock="Top"/>
         <Button Content="Links" DockPanel.Dock="Left"/>
@@ -36,12 +37,52 @@
         <Button VerticalAlignment="Bottom" x:Name="button3" Content="Lol" Height="100" Width="400"/>
     </StackPanel>-->
 
-    <StackPanel Margin="30">
+    <!--<StackPanel Margin="30">
         <Label Foreground="Red" Background="Aquamarine">Hallo Welt!</Label>
         <Label>
             <Image Source="Pics/elephant.jpg" Width="200" Height="100"/>
         </Label>
         <TextBox></TextBox>
-    </StackPanel>
+    </StackPanel>-->
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="button1_1" Grid.Row="2" Grid.Column="1" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button1_2" Grid.Row="2" Grid.Column="2" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button1_3" Grid.Row="2" Grid.Column="3" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button1_4" Grid.Row="2" Grid.Column="4" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+
+        <Button x:Name="button2_1" Grid.Row="4" Grid.Column="1" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button2_2" Grid.Row="4" Grid.Column="2" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button2_3" Grid.Row="4" Grid.Column="3" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button2_4" Grid.Row="4" Grid.Column="4" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+
+        <Button x:Name="button3_1" Grid.Row="6" Grid.Column="1" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button3_2" Grid.Row="6" Grid.Column="2" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button3_3" Grid.Row="6" Grid.Column="3" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button3_4" Grid.Row="6" Grid.Column="4" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+
+
+    </Grid>
     
 </Window>
