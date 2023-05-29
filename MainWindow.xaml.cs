@@ -18,12 +18,21 @@ namespace GuiTest
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
+
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
             //Button1.Content = "Hallo";
+        }
+
+        private void button1_1_Click(object sender, RoutedEventArgs e)
+        {
+            string s = button1_1.Name;
+            Console.WriteLine(s);
         }
 
         //private void Button_Click(object sender, RoutedEventArgs e)
