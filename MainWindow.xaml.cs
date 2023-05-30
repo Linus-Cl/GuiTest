@@ -25,6 +25,8 @@ namespace GuiTest
     public partial class MainWindow : Window
     {
         public new string TextInput { get; set; }
+
+        public List<string> DefaultSearchDirectories = new List<string>() { "C:\\Program Files (x86)", "C:\\Program Files", "C:\\Windows" };
         public MainWindow()
         {
             InitializeComponent();
@@ -38,7 +40,7 @@ namespace GuiTest
             string path;
             try
             {
-                path = GetAppPath(TextInput);
+                path = GetAppPath(TextInput, DefaultSearchDirectories);
             }
             catch (Exception ex)
             {
@@ -49,21 +51,50 @@ namespace GuiTest
 
         private void button1_2_Click(object sender, RoutedEventArgs e)
         {
-            _ = Process.Start("C:\\Windows\\explorer.exe");
+            _ = Process.Start("C:\\Program Files\\texstudio\\texstudio.exe");
         }
 
-        private string GetAppPath(string keyword)
+        private string GetAppPath(string keyword, List<string> directories)
         {
             string Searchpattern = "*" + keyword + "*" + ".exe";
-            List<string> results = Directory.GetFiles("C:\\Program Files (x86)", Searchpattern).ToList();
-            results.AddRange(Directory.GetFiles("C:\\Program Files", Searchpattern).ToList());
-            results.AddRange(Directory.GetFiles("C:\\Windows", Searchpattern).ToList());
+            List<string> results = new List<string>();
+
+            foreach (var item in directories)
+            {
+                try
+                {
+                    results.AddRange(Directory.GetFiles(item, Searchpattern).ToList());
+                }
+                catch(Exception exc)
+                {
+                    Console.WriteLine("Get Files" + exc.ToString());
+                }
+            }
+
 
             if (results.Any())
             {
                 return results[0];
             }
-            else { throw new Exception("No executable found."); }
+            else 
+            {
+                List<string> NewDirectories = new List<string>();
+
+                foreach (var item in directories)
+                {
+                    try
+                    {
+                        NewDirectories.AddRange(Directory.GetDirectories(item).ToList());
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("Get Directories: " + ex.ToString());
+                    }
+                }
+                //throw new Exception("No executable found."); 
+                return GetAppPath(keyword, NewDirectories);
+
+            }
         }
 
     }
