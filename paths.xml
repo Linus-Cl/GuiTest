@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<buttons>
+	<button nr ="1_3">
+		<path>C:\\Windows\\explorer.exe</path>
+		<path>C:\\Program Files\\texstudio\\texstudio.exe</path>
+	</button>
+</buttons>

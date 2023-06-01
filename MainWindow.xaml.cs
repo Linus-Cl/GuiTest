@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Xml;
 
 namespace GuiTest
 {
@@ -29,6 +30,9 @@ namespace GuiTest
         public List<string> DefaultSearchDirectories = new List<string>() { "C:\\Program Files (x86)", "C:\\Program Files", "C:\\Windows" };
 
         public Dictionary<string, List<string>> myDictionary = new();
+
+        public XmlDocument doc = new XmlDocument();
+        
         
         public MainWindow()
         {
@@ -125,5 +129,25 @@ namespace GuiTest
             }
         }
 
+        private void button1_3_Click(object sender, RoutedEventArgs e)
+        {
+            string indentifier = "1_3";
+            doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
+            XmlNode node = doc.DocumentElement.SelectSingleNode("/buttons");
+
+            foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
+            {
+                if (subnode.Attributes["nr"].InnerText.Equals(indentifier, StringComparison.Ordinal))
+                {
+                    node = subnode;
+                    break;
+                }
+            }
+
+            foreach (XmlNode pathNode in node.ChildNodes)
+            {
+               _ = Process.Start(pathNode.InnerText);
+            }
+        }
     }
 }
