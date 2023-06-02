@@ -72,11 +72,31 @@ namespace GuiTest
         {
             string _identifier = "button1_2";
 
-            foreach (string path in myDictionary[_identifier])
+            //foreach (string path in myDictionary[_identifier])
+            //{
+            //    _ = Process.Start(path);
+            //}
+
+            string pathToAdd = GetAppPath(TextInput, DefaultSearchDirectories);
+
+            doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
+            XmlNode node = doc.DocumentElement.SelectSingleNode("/buttons");
+
+            XmlNode newNode = doc.CreateNode(XmlNodeType.Element, "path", "");
+            newNode.InnerText = pathToAdd;
+            
+
+            foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
             {
-                _ = Process.Start(path);
+                if (subnode.Attributes["nr"].InnerText.Equals("1_3", StringComparison.Ordinal))
+                {
+                    node = subnode;
+                    break;
+                }
             }
-           // _ = Process.Start("C:\\Program Files\\texstudio\\texstudio.exe");
+
+            node.AppendChild(newNode);
+            doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
         }
 
         private string GetAppPath(string keyword, List<string> directories)
@@ -146,7 +166,7 @@ namespace GuiTest
 
             foreach (XmlNode pathNode in node.ChildNodes)
             {
-               _ = Process.Start(pathNode.InnerText);
+                _ = Process.Start(pathNode.InnerText);
             }
         }
     }
