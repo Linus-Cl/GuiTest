@@ -169,5 +169,41 @@ namespace GuiTest
                 _ = Process.Start(pathNode.InnerText);
             }
         }
+
+        private void button1_4_Click(object sender, RoutedEventArgs e)
+        {
+            string _identifier = "button1_4";
+
+            //foreach (string path in myDictionary[_identifier])
+            //{
+            //    _ = Process.Start(path);
+            //}
+
+            string pathToAdd = GetAppPath(TextInput, DefaultSearchDirectories);
+
+            doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
+            XmlNode node = doc.DocumentElement.SelectSingleNode("/buttons");
+
+
+            foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
+            {
+                if (subnode.Attributes["nr"].InnerText.Equals("1_3", StringComparison.Ordinal))
+                {
+                    node = subnode;
+                    break;
+                }
+            }
+
+            foreach (XmlNode subnode in node)
+            {
+                if(subnode.InnerText.Equals(pathToAdd, StringComparison.Ordinal))
+                {
+                    _ = subnode.ParentNode.RemoveChild(subnode);
+                }
+            }
+
+            
+            doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
+        }
     }
 }
