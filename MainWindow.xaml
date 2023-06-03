@@ -45,6 +45,10 @@
         <TextBox></TextBox>
     </StackPanel>-->
 
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" Executed="ButtonRC_Executed" CanExecute="ButtonRC_CanExecute"/>
+    </Window.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
@@ -74,7 +78,11 @@
         <Button x:Name="button1_3" Grid.Row="2" Grid.Column="3" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_3_Click"/>
         <Button x:Name="button1_4" Grid.Row="2" Grid.Column="4" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_4_Click"/>
 
-        <Button x:Name="button2_1" Grid.Row="4" Grid.Column="1" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
+        <Button x:Name="button2_1" Grid.Row="4" Grid.Column="1" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2">
+            <Button.InputBindings>
+                <MouseBinding Gesture="RightClick" Command="ApplicationCommands.New"></MouseBinding>
+            </Button.InputBindings>
+        </Button>
         <Button x:Name="button2_2" Grid.Row="4" Grid.Column="2" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
         <Button x:Name="button2_3" Grid.Row="4" Grid.Column="3" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>
         <Button x:Name="button2_4" Grid.Row="4" Grid.Column="4" Content="Hello" Margin="20" Background="#FF686868" Foreground="#FFE4E2E2" Click="button1_1_Click"/>

@@ -32,8 +32,9 @@ namespace GuiTest
         public Dictionary<string, List<string>> myDictionary = new();
 
         public XmlDocument doc = new XmlDocument();
-        
-        
+
+       //public ICommand ButtonRC;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +43,22 @@ namespace GuiTest
             //Button1.Content = "Hallo";
         }
         
+        private void ButtonRC_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void ButtonRC_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            //Button clickedButton = sender as Button;
+
+            if (e.OriginalSource is Button clickedButton)
+            {
+                clickedButton.Background = Brushes.Red;
+            }
+            MessageBox.Show(sender.ToString() + "The New command was invoked");
+        }
+
         private void button1_1_Click(object sender, RoutedEventArgs e)
         {
             //_ = MessageBox.Show(TextInput.ToString());
