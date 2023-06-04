@@ -268,7 +268,7 @@ namespace GuiTest
 
             foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
             {
-                if (subnode.Attributes["nr"].InnerText.Equals("2_1", StringComparison.Ordinal))
+                if (subnode.Attributes["nr"].InnerText.Equals("2_1", StringComparison.Ordinal))                                   // <----- "2_1" muss ersetzt werden -> irgendwie aktuellen nutton handle getten!
                 {
                     node = subnode;
                     break;
