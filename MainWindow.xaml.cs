@@ -32,11 +32,13 @@ namespace GuiTest
         public Dictionary<string, List<string>> myDictionary = new();
 
         public XmlDocument doc = new XmlDocument();
+        public Button LastRightClickedButton;
 
-       //public ICommand ButtonRC;
+        //public ICommand ButtonRC;
 
         public MainWindow()
         {
+            
             InitializeComponent();
             DataContext = this;
             myDictionary.Add("button1_2", new List<string>());
@@ -54,9 +56,14 @@ namespace GuiTest
 
             if (e.OriginalSource is Button clickedButton)
             {
+                string s = TextInput;
+                LastRightClickedButton = clickedButton;
                 clickedButton.Background = Brushes.Red;
+                ContextMenu cm = FindResource("cm") as ContextMenu;
+                cm.PlacementTarget = clickedButton;
+                cm.IsOpen = true;
             }
-            MessageBox.Show(sender.ToString() + "The New command was invoked");
+            //MessageBox.Show(sender.ToString() + "The New command was invoked");
         }
 
         private void button1_1_Click(object sender, RoutedEventArgs e)
@@ -221,6 +228,81 @@ namespace GuiTest
 
             
             doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
+        }
+
+        private void cm_addPath_Click(object sender, RoutedEventArgs e)
+        {
+            //if (LastRightClickedButton != null)
+            //{
+            //    LastRightClickedButton.Background = Brushes.Navy;
+            //}
+
+            //string _identifier = "button2_1";
+
+            //foreach (string path in myDictionary[_identifier])
+            //{
+            //    _ = Process.Start(path);
+            //}
+            //var window = Window.GetWindow(LastRightClickedButton) as MainWindow;
+
+            //string s = "";
+            //if (window != null)
+            //{
+            //    s = window.TextInput;
+            //}
+
+            TextBox textBox = LastRightClickedButton.FindName("TextBox_Input") as TextBox;
+
+            // Datenbindung aktualisieren
+            textBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+            
+            string pathToAdd = GetAppPath(TextInput, DefaultSearchDirectories);
+            Trace.WriteLine("PATH: " + pathToAdd);
+
+            doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
+            XmlNode node = doc.DocumentElement.SelectSingleNode("/buttons");
+
+            XmlNode newNode = doc.CreateNode(XmlNodeType.Element, "path", "");
+            newNode.InnerText = pathToAdd;
+
+
+            foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
+            {
+                if (subnode.Attributes["nr"].InnerText.Equals("2_1", StringComparison.Ordinal))
+                {
+                    node = subnode;
+                    break;
+                }
+            }
+
+            node.AppendChild(newNode);
+            doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
+        }
+
+        private void button2_1_Click(object sender, RoutedEventArgs e)
+        {
+            string indentifier = "2_1";
+            doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
+            XmlNode node = doc.DocumentElement.SelectSingleNode("/buttons");
+
+            foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
+            {
+                if (subnode.Attributes["nr"].InnerText.Equals(indentifier, StringComparison.Ordinal))
+                {
+                    node = subnode;
+                    break;
+                }
+            }
+
+            foreach (XmlNode pathNode in node.ChildNodes)
+            {
+                _ = Process.Start(pathNode.InnerText);
+            }
+        }
+
+        private void cm_removePath_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
