@@ -41,7 +41,7 @@ namespace GuiTest
             
             InitializeComponent();
             DataContext = this;
-            myDictionary.Add("button1_2", new List<string>());
+            //myDictionary.Add("button1_2", new List<string>());
             //Button1.Content = "Hallo";
         }
         
@@ -56,7 +56,7 @@ namespace GuiTest
 
             if (e.OriginalSource is Button clickedButton)
             {
-                string s = TextInput;
+                //string s = TextInput;
                 LastRightClickedButton = clickedButton;
                 clickedButton.Background = Brushes.Red;
                 ContextMenu cm = FindResource("cm") as ContextMenu;
@@ -250,7 +250,7 @@ namespace GuiTest
 
             foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
             {
-                if (subnode.Attributes["nr"].InnerText.Equals("2_1", StringComparison.Ordinal))                                   // <----- "2_1" muss ersetzt werden -> irgendwie aktuellen nutton handle getten!
+                if (subnode.Attributes["nr"].InnerText.Equals(LastRightClickedButton.Uid, StringComparison.Ordinal))                                   // <----- "2_1" muss ersetzt werden -> irgendwie aktuellen nutton handle getten!
                 {
                     node = subnode;
                     break;
@@ -261,15 +261,17 @@ namespace GuiTest
             doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
         }
 
-        private void button2_1_Click(object sender, RoutedEventArgs e)
+        private void buttonClick(object sender, RoutedEventArgs e)
         {
-            string indentifier = "2_1";
+            Button b = sender as Button;
+            string identifier = b.Uid;
+            
             doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
             XmlNode node = doc.DocumentElement.SelectSingleNode("/buttons");
 
             foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
             {
-                if (subnode.Attributes["nr"].InnerText.Equals(indentifier, StringComparison.Ordinal))
+                if (subnode.Attributes["nr"].InnerText.Equals(identifier, StringComparison.Ordinal))
                 {
                     node = subnode;
                     break;
@@ -297,7 +299,7 @@ namespace GuiTest
 
             foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
             {
-                if (subnode.Attributes["nr"].InnerText.Equals("2_1", StringComparison.Ordinal))
+                if (subnode.Attributes["nr"].InnerText.Equals(LastRightClickedButton.Uid, StringComparison.Ordinal))
                 {
                     node = subnode;
                     break;
@@ -315,6 +317,6 @@ namespace GuiTest
 
             doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
         }
-    
+
     }
 }
