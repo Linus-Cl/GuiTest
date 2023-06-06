@@ -222,7 +222,7 @@ namespace GuiTest
             {
                 if(subnode.InnerText.Equals(pathToAdd, StringComparison.Ordinal))
                 {
-                    _ = subnode.ParentNode.RemoveChild(subnode);
+                    _ = node.RemoveChild(subnode);
                 }
             }
 
@@ -232,24 +232,6 @@ namespace GuiTest
 
         private void cm_addPath_Click(object sender, RoutedEventArgs e)
         {
-            //if (LastRightClickedButton != null)
-            //{
-            //    LastRightClickedButton.Background = Brushes.Navy;
-            //}
-
-            //string _identifier = "button2_1";
-
-            //foreach (string path in myDictionary[_identifier])
-            //{
-            //    _ = Process.Start(path);
-            //}
-            //var window = Window.GetWindow(LastRightClickedButton) as MainWindow;
-
-            //string s = "";
-            //if (window != null)
-            //{
-            //    s = window.TextInput;
-            //}
 
             TextBox textBox = LastRightClickedButton.FindName("TextBox_Input") as TextBox;
 
@@ -275,7 +257,7 @@ namespace GuiTest
                 }
             }
 
-            node.AppendChild(newNode);
+            _ = node.AppendChild(newNode);
             doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
         }
 
@@ -302,7 +284,37 @@ namespace GuiTest
 
         private void cm_removePath_Click(object sender, RoutedEventArgs e)
         {
+            TextBox textBox = LastRightClickedButton.FindName("TextBox_Input") as TextBox;
 
+            // Datenbindung aktualisieren
+            textBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
+
+            string pathToAdd = GetAppPath(TextInput, DefaultSearchDirectories);
+
+            doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
+            XmlNode node = doc.DocumentElement.SelectSingleNode("/buttons");
+
+
+            foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
+            {
+                if (subnode.Attributes["nr"].InnerText.Equals("2_1", StringComparison.Ordinal))
+                {
+                    node = subnode;
+                    break;
+                }
+            }
+
+            foreach (XmlNode subnode in node)
+            {
+                if (subnode.InnerText.Equals(pathToAdd, StringComparison.Ordinal))
+                {
+                    _ = node.RemoveChild(subnode);
+                }
+            }
+
+
+            doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
         }
+    
     }
 }

@@ -5,18 +5,10 @@
     <path>C:\\Program Files\\texstudio\\texstudio.exe</path>
     <path>C:\Windows\explorer.exe</path>
     <path>C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe</path>
-    <path>C:\Windows\notepad.exe</path>
   </button>
   <button nr="2_1">
+    <path>C:\Windows\notepad.exe</path>
     <path>C:\Windows\explorer.exe</path>
-    <path>C:\Windows\notepad.exe</path>
-    <path>C:\Windows\bfsvc.exe</path>
-    <path>C:\Windows\bfsvc.exe</path>
-    <path>C:\Windows\bfsvc.exe</path>
-    <path>C:\Windows\bfsvc.exe</path>
-    <path>C:\Windows\bfsvc.exe</path>
-    <path>C:\Windows\notepad.exe</path>
-    <path>C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe</path>
-    <path>C:\Windows\notepad.exe</path>
+    <path>C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe</path>
   </button>
 </buttons>
