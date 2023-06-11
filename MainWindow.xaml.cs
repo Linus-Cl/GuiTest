@@ -237,15 +237,22 @@ namespace GuiTest
 
             // Datenbindung aktualisieren
             textBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
-            
-            string pathToAdd = GetAppPath(TextInput, DefaultSearchDirectories);
+
+            string pathToAdd = ManageCollection_QuickSearch(TextInput);
+
+            if (!pathToAdd.Any())
+            {
+                pathToAdd = GetAppPath(TextInput, DefaultSearchDirectories);
+            }
+             
             Trace.WriteLine("PATH: " + pathToAdd);
+
+            XmlNode pathNode = ManagePathCollection_Add(pathToAdd);
 
             doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
             XmlNode node = doc.DocumentElement.SelectSingleNode("/buttons");
 
-            XmlNode newNode = doc.CreateNode(XmlNodeType.Element, "path", "");
-            newNode.InnerText = pathToAdd;
+            XmlNode newNode = doc.ImportNode(pathNode, true);
 
 
             foreach (XmlNode subnode in doc.DocumentElement.SelectSingleNode("/buttons").ChildNodes)
@@ -293,6 +300,8 @@ namespace GuiTest
 
             string pathToAdd = GetAppPath(TextInput, DefaultSearchDirectories);
 
+
+
             doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
             XmlNode node = doc.DocumentElement.SelectSingleNode("/buttons");
 
@@ -318,5 +327,56 @@ namespace GuiTest
             doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\paths.xml"));
         }
 
-    }
+        private XmlNode ManagePathCollection_Add(string path)
+        {
+            doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\pathcollection.xml"));
+            XmlNode node = doc.DocumentElement.SelectSingleNode("/paths");
+            bool AlreadyInCollection = false;
+            int CollectionCount = 0;
+            XmlNode OldNode = null;
+            foreach (XmlNode subnode in node.ChildNodes)
+            {
+                CollectionCount++;
+                if (subnode.InnerText.Equals(path, StringComparison.Ordinal))
+                {
+                    OldNode = subnode;
+                    AlreadyInCollection = true;
+                    break;
+                }
+            }
+
+            if (!AlreadyInCollection)
+            {
+                XmlAttribute attr = doc.CreateAttribute("id");
+                attr.Value = CollectionCount.ToString();
+                XmlNode newNode = doc.CreateNode(XmlNodeType.Element, "path", "");
+                newNode.InnerText = path;
+                newNode.Attributes.SetNamedItem(attr);
+                _ = node.AppendChild(newNode);
+                doc.Save(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\pathcollection.xml"));
+                return newNode;
+            }
+            return OldNode;
+        }
+
+        private string ManageCollection_QuickSearch(string path)
+        {
+            if (!path.Any())
+            {
+                return "";
+            }
+            doc.Load(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\pathcollection.xml"));
+            XmlNode node = doc.DocumentElement.SelectSingleNode("/paths");
+            foreach (XmlNode subnode in node.ChildNodes)
+            {
+                if (subnode.InnerText.ToUpper().Contains(path.ToUpper(), StringComparison.Ordinal))
+                {
+                    Trace.WriteLine("Found in Collection!");
+                    return subnode.InnerText;
+                }
+            }
+            return "";
+        }
+
+    }   
 }
